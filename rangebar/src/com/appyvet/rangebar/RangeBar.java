@@ -183,6 +183,10 @@ public class RangeBar extends View {
 
     private float mLastY;
 
+    private float mOriginalX;
+
+    private float mOriginalY;
+
     private IRangeBarFormatter mFormatter;
 
     private boolean drawTicks = true;
@@ -425,7 +429,9 @@ public class RangeBar extends View {
             case MotionEvent.ACTION_DOWN:
                 mDiffX = 0;
                 mDiffY = 0;
-
+                // XXX: Make these properties of the thumbs themselves
+                mOriginalX = mRightThumb.getX();
+                mOriginalY = mRightThumb.getY();
                 mLastX = event.getX();
                 mLastY = event.getY();
                 onActionDown(event.getX(), event.getY());
@@ -438,26 +444,24 @@ public class RangeBar extends View {
 
             case MotionEvent.ACTION_CANCEL:
                 this.getParent().requestDisallowInterceptTouchEvent(false);
-                onActionUp(event.getX(), event.getY());
+                onActionUp(mOriginalX, mOriginalY);
                 return true;
 
             case MotionEvent.ACTION_MOVE:
-                onActionMove(event.getX());
-                this.getParent().requestDisallowInterceptTouchEvent(true);
                 final float curX = event.getX();
                 final float curY = event.getY();
                 mDiffX += Math.abs(curX - mLastX);
                 mDiffY += Math.abs(curY - mLastY);
-                mLastX = curX;
-                mLastY = curY;
-
                 if (mDiffX < mDiffY) {
                     //vertical touch
                     getParent().requestDisallowInterceptTouchEvent(false);
                     return false;
-                } else {
-                    //horizontal touch (do nothing as it is needed for RangeBar)
                 }
+                onActionMove(event.getX());
+                this.getParent().requestDisallowInterceptTouchEvent(true);
+                mLastX = curX;
+                mLastY = curY;
+
                 return true;
 
             default:
