@@ -204,6 +204,7 @@ public class RangeBar extends View {
 
     public RangeBar(Context context) {
         super(context);
+        mTickMap = new HashMap<Float, String>();
     }
 
     public RangeBar(Context context, AttributeSet attrs) {
