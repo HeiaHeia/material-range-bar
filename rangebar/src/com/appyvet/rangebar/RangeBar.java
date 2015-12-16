@@ -765,6 +765,15 @@ public class RangeBar extends View {
         createPins();
     }
 
+    public void setPinPadding(float pinPadding) {
+        mPinPadding = pinPadding;
+        createPins();
+    }
+
+    public void setBarPaddingBottom(float barPaddingBottom) {
+        mBarPaddingBottom = barPaddingBottom;
+    }
+
     /**
      * Gets the start tick.
      *
