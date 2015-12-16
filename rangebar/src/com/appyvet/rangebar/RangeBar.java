@@ -724,6 +724,11 @@ public class RangeBar extends View {
         createPins();
     }
 
+    public void setSelectorSize(float selectorSize) {
+        mCircleSize = selectorSize;
+        createPins();
+    }
+
     /**
      * Set the weight of the connecting line between the thumbs.
      *
