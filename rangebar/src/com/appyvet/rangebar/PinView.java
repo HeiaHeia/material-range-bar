@@ -123,7 +123,9 @@ class PinView extends View {
             float circleRadius, int circleColor, float minFont, float maxFont, boolean pinsAreTemporary) {
 
         mRes = ctx.getResources();
-        mPin = ContextCompat.getDrawable(ctx, R.drawable.rotate);
+        if (pinRadiusDP > 0) {
+            mPin = ContextCompat.getDrawable(ctx, R.drawable.rotate);
+        }
 
         mDensity = getResources().getDisplayMetrics().density;
         mMinPinFont = minFont / mDensity;
